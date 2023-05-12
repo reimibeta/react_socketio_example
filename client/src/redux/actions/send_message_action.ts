@@ -1,15 +1,28 @@
-import { SEND_MESSAGE } from "./send_message_action_type";
-import { connect } from 'socket.io-client';
+import { MESSAGE_SEND, MESSAGE_RECEIVED, ROOM } from "./send_message_action_type";
 
-const socket = connect("http://localhost:3001");
-
-export const dispatchSendMessage = (props: { message: string, room: string }) => (dispatch: any) => {
+export const dispatchSendMessage = (socket: any, props: { message: string, room: string }) => (dispatch: any) => {
     socket.emit("send_message", { message: props.message, room: props.room });
     dispatch({
-        type: SEND_MESSAGE,
-        payload: {
-            message: props.message,
-            room: props.room
-        }
+        type: MESSAGE_SEND,
+        payload: props.message
+    });
+} 
+
+export const dispatchReceiveMessage = (socket: any) => (dispatch: any) => {
+    socket.on("receive_message", (data: any) => {
+        // alert(data)
+        // console.log(data.message)
+        dispatch({
+            type: MESSAGE_RECEIVED,
+            payload: data.message
+        });
+    });
+} 
+
+export const dispatchSetRoom = (socket: any, props: { room: string }) => (dispatch: any) => {
+    socket.emit("join_room", props.room);
+    dispatch({
+        type: ROOM,
+        payload: props.room
     });
 }
