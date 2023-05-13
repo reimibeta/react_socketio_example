@@ -44,6 +44,8 @@ const App: React.FC<Props> = ({
     }
   };
 
+  //
+  const [user, setUser] = useState('');
 
   useEffect(() => {
     // socket.on("receive_message", (data) => {
@@ -52,6 +54,8 @@ const App: React.FC<Props> = ({
     //   setMsgReceived(data.message);
     // });
     dispatchReceiveMessage(socket);
+    //
+    // socket.on();
   }, [socket]);
 
   return (

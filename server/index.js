@@ -43,6 +43,9 @@ sales.on("connection", (socket) => {
         socket.to(data.room).emit("receive_message", data);
     });
 });
+sales.on('disconnect', function(data){
+    socket.broadcast.to(data.room).emit('user_leave', {user_name: "johnjoe123", sid: socket.id});
+});
 
 server.listen(3001, () => console.log('server running on port 3001'));
 
