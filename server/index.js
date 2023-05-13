@@ -31,10 +31,18 @@ io.on("connection", (socket) => {
 // socket.on('disconnect', function(data){
 //     socket.broadcast.to(data.room).emit('user_leave', {user_name: "johnjoe123", sid: socket.id});
 // });
-// const sales = io.of("/sales");
-// sales.on("connection", (socket) => {
-    
-// });
+const sales = io.of("/sales");
+sales.on("connection", (socket) => {
+    socket.on("join_room", (data) => {
+        socket.join(data);
+    });
+    // console.log('User Connected: ' + socket.id);
+    socket.on("send_message", (data) => {
+        // console.log(data);
+        // socket.broadcast.emit("receive_message", data);
+        socket.to(data.room).emit("receive_message", data);
+    });
+});
 
 server.listen(3001, () => console.log('server running on port 3001'));
 
