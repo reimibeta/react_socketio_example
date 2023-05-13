@@ -46,6 +46,13 @@ const App: React.FC<Props> = ({
 
   //
   const [user, setUser] = useState('');
+  const userLeave = () => {
+    // socket.emit("user_leave", {});
+    socket.on("receive_message", (data: any) => {
+      setUser(data.user);
+    });
+  }
+  const [sid, setSid] = useState('');
 
   useEffect(() => {
     // socket.on("receive_message", (data) => {
@@ -56,6 +63,10 @@ const App: React.FC<Props> = ({
     dispatchReceiveMessage(socket);
     //
     // socket.on();
+    userLeave();
+    if(sid){
+      setSid(socket.id);
+    }
   }, [socket]);
 
   return (
@@ -74,6 +85,10 @@ const App: React.FC<Props> = ({
         }}
       />
       <button onClick={sendMessage}> Send Message</button>
+      <h1>Socket ID:</h1>
+      <>{socket.id}</>
+      <h1>User ID:</h1>
+      <>{user}</>
       <h1>Room:</h1>
       <>{room}</>
       <h1>Message:</h1>
