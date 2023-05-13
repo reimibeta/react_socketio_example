@@ -26,9 +26,15 @@ io.on("connection", (socket) => {
         socket.to(data.room).emit("receive_message", data);
     });
     // check this tomorrow
-    socket.on('disconnect', function(data){
-        socket.broadcast.to(data.room).emit('user_leave', {user_name: "johnjoe123", sid: socket.id});
-    });
 });
 
+// socket.on('disconnect', function(data){
+//     socket.broadcast.to(data.room).emit('user_leave', {user_name: "johnjoe123", sid: socket.id});
+// });
+// const sales = io.of("/sales");
+// sales.on("connection", (socket) => {
+    
+// });
+
 server.listen(3001, () => console.log('server running on port 3001'));
+
