@@ -4,7 +4,8 @@ import { connect } from "react-redux";
 import './App.css';
 import { dispatchSetRoom, dispatchSendMessage, dispatchReceiveMessage } from './redux/actions/send_message_action';
 
-const socket = connectSocket("http://localhost:3001");
+// const socket = connectSocket("http://localhost:3001");
+const socket = connectSocket("http://socket.pcrpallet.com");
 // const socket = connectSocket("http://localhost:3001/sales");
 
 interface Props {
